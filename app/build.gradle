@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+
+
+
+android {
+    compileSdkVersion  baseConfig.compileSdkVersion
+    buildToolsVersion  baseConfig.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.example.demo"
+        minSdkVersion baseConfig.minSdkVersion
+        targetSdkVersion baseConfig.targetSdkVersion
+        versionCode baseConfig.versionCode
+        versionName baseConfig.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.dependencies.publicImplementation
+
+    annotationProcessor project(path: ':compiler')
+
+    rootProject.ext.dependencies.base.each{
+        implementation project(path:it)
+    }
+
+    if(isLibrary){
+        implementation project(":login")
+        implementation project(":member")
+    }
+}

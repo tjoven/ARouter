@@ -1,0 +1,15 @@
+注意事项：
+	1，避免 包名和资源名冲突
+	2，不同module，gradle 版本号统一管理
+		rootProject 创建config.gradle 全局变量 版本号
+	3，module 在Application和Library 之间如何切换
+		build
+	4，AndroidManifest文件的区别，创建两个manifest
+	    build-》 sourceSet
+    5，app module 以来所有的业务module
+
+
+实现步骤：
+    1，使用apt技术和javapoet 编译时生成java代码
+    2，Router初始化，把写入映射表
+    3，调用，
